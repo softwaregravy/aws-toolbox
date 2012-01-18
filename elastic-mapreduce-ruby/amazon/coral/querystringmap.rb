@@ -45,21 +45,21 @@ module Amazon
 
       def add_flattened_helper(stack, obj)
         return if obj.nil?
-        
+
         case obj
-        when Hash:
+        when Hash
 
-            obj.each_pair { |k,v|
-            stack.push(k)
-            add_flattened_helper(stack, v)
-            stack.pop
-          }
+          obj.each_pair { |k,v|
+          stack.push(k)
+          add_flattened_helper(stack, v)
+          stack.pop
+        }
 
-        when Array:
+        when Array
 
-            # Do artificial list member wrapping (Coral requires this
-            # level of indirection, but doesn't validate the member name)
-            stack.push("member")
+          # Do artificial list member wrapping (Coral requires this
+          # level of indirection, but doesn't validate the member name)
+          stack.push("member")
 
           obj.each_index { |i|
             v = obj[i]

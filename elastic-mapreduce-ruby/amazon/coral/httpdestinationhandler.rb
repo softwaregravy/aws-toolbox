@@ -16,7 +16,7 @@ module Amazon
         @log = LogFactory.getLog('Amazon::Coral::HttpDestinationHandler')
 
         @uri = case endpoint
-               when URI:
+               when URI
                    endpoint
                else
                  URI.parse(endpoint)
