@@ -47,6 +47,10 @@ AWS::Client::CommandLine.new do |client|
     client.service_param('IncludeDeletedBackTo', client.convert_time(include_deleted_time.to_i))
   end
 
+  client.option('-n', '--no-headers', 'Don\'t print the header lines') do 
+    client.should_print_headers = false
+  end 
+
   client.filter 'DateCreated' do |val| Time.at(val)  end
   client.filter 'DateUpdated' do |val| Time.at(val)  end
   client.exclude('Resources')
