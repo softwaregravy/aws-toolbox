@@ -4,8 +4,9 @@ require 'json'
 module AWS
   module Client
     class CommandLine
-      attr_accessor :default_filter, :empty_response, :error_handler, :result_key, :service_call
+      attr_accessor :default_filter, :empty_response, :error_handler, :result_key, :service_call, :should_print_headers
       
+
       def initialize
         # Filters map
         @output_filters = {}
@@ -21,6 +22,9 @@ module AWS
         
         # Initialize the options parser
         init_parser
+
+        #print headers by default
+        @should_print_headers = true
 
         # Yield this instance to a block
         yield self if block_given?
@@ -39,6 +43,14 @@ module AWS
       def option(*opts, &block)
         @parser.on(*opts, &block)
       end
+
+      def should_print_headers 
+        @should_print_headers 
+      end 
+
+      def should_print_headers=(flag) 
+        @should_print_headers = flag 
+      end 
       
       # Store params for the service call
       def service_param(key, value)
@@ -127,7 +139,7 @@ module AWS
 
       # Prints the keys from the result objects
       def print_headers(results)
-        return if results.nil?
+        return if results.nil? || !@should_print_headers
 
         if results.respond_to?(:to_hash)       
           headers = results.to_hash.keys.sort.reject{|e| @display_exclusions.include?(e)}.join(@output_delimiter || ' | ')
