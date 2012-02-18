@@ -35,7 +35,7 @@ AWS::ElasticBeanstalk::OptionSettingsCLI.new do |client|
   end
 
   client.option('-t', '--template-name NAME', 'Template name') do |template_name|
-    client.service_param('TemplateName', template_name)
+    client.service_param('TemplateName', config_name)
   end
 
   client.option('-d', '--description DESC', 'Description') do |description|

@@ -42,10 +42,6 @@ EnvironmentResourcesCLI.new do |client|
   client.option('-E', '--environment-id ID', 'ID of the environment') do |env_id|
     client.service_param('EnvironmentId', env_id)
   end
-
-  client.option('-n', '--no-headers', 'Don\'t print the header lines') do 
-    client.should_print_headers = false
-  end 
   
   client.filter 'AutoScalingGroups'    do |val| client.flatten_resources(val) end
   client.filter 'Instances'            do |val| client.flatten_resources(val) end
